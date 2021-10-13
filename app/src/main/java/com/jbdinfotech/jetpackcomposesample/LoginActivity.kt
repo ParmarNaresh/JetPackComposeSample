@@ -1,5 +1,6 @@
 package com.jbdinfotech.jetpackcomposesample
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -7,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -17,8 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jbdinfotech.jetpackcomposesample.ui.theme.JetPackComposeSampleTheme
@@ -89,12 +95,30 @@ class LoginActivity : ComponentActivity() {
                     }, Modifier.background(color = Color.Blue)) {
                         Text(text = "Login Now")
                     }
-                    Text("Not register?")
+
+                    ClickableText(text = buildAnnotatedString {
+                        append("Not Register? ")
+                        withStyle(
+                            style = SpanStyle(
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFF4552B8)
+                            )
+                        ) {
+                            append("Register Now")
+                        }
+                    }, onClick = {
+                        onRegisterButtonClicked()
+                    }, modifier = Modifier.padding(20.dp))
 
 
                 }
             }
         }
+    }
+
+    fun onRegisterButtonClicked() {
+        val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
     }
 
 }
